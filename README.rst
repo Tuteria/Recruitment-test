@@ -31,12 +31,7 @@ For convenience, you can keep your normal user logged in on Chrome and your supe
 
 Work to be done
 ^^^^^^^^^^^^^^^
-1. create a file in `users/tests` called `mini_tests.py` and write a passing tests
-that implements the following conditions
-
-* When I pass in `multiples of 3 and 5 e.g 15` into a function named `fizzbuzz_val`, the test must assert that `FizzBuzz` is the result recieved i.e `self.assertEqual(fizzbuzz_val(15), 'FizzBuzz')` 
-* Just like the above, when `multiples of 5 alone` is passed into the function it returns 'Buzz'
-* just like the above, when `multiples of 3 alone` is passed into the function it returns 'Fizz'
+1. Ensure that all tests in `users/test/test_models.py` are all passing.
 
 2. Ensure that the 
 
