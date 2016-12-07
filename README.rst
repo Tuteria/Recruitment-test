@@ -49,3 +49,6 @@ This repo has been setup with a continous integration server known as Travis tha
 automatically runs all the tests and would only proceed when all the tests are passing.
 
 Once the CI indicates that all tests are passing, You would be contacted.
+
+Ensure that the application runs locally on your system and all the thests pass before submitting a pull request
+=================================================================================================================
