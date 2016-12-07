@@ -67,8 +67,6 @@ class TestUserUpdateView(BaseUserTestCase):
             self.user
         )
 
-from ..serializers import UserSerializer
-from ..views import ApiView
 class DjangoRestFrameworkUsageApiTestCase(TestCase):
 
     def setUp(self):
