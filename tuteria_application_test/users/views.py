@@ -48,6 +48,7 @@ class UserListView(LoginRequiredMixin, ListView):
     slug_url_kwarg = 'username'
 
 
+
 class UserApiView(CsrfExemptMixin, JsonRequestResponseMixin, View):
     # require_json = True
 
