@@ -26,27 +26,19 @@ Create a postgres Database
 
 * Create a postgres database and setup the environmental variable `DATABASE_URL` to point to the url format of the database created.
 
-* To create an **superuser account**, use this command::
-
-    $ python manage.py createsuperuser
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Test coverage
-^^^^^^^^^^^^^
+Work to be done
+^^^^^^^^^^^^^^^
+1. create a file in `users/tests` called `mini_tests.py` and write a passing tests
+that implements the following conditions
 
-To run the tests, check your test coverage, and generate an HTML coverage report::
+* When I pass in `multiples of 3 and 5 e.g 15` into a function named `fizzbuzz_val`, the test must assert that `FizzBuzz` is the result recieved i.e `self.assertEqual(fizzbuzz_val(15), 'FizzBuzz')` 
+* Just like the above, when `multiples of 5 alone` is passed into the function it returns 'Buzz'
+* just like the above, when `multiples of 3 alone` is passed into the function it returns 'Fizz'
 
-    $ coverage run manage.py test
-    $ coverage html
-    $ open htmlcov/index.html
-
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py.test
+2. Ensure that the 
 
 Live reloading and Sass CSS compilation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

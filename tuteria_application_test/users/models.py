@@ -20,3 +20,18 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
+
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, null=True)
+    order = models.CharField(max_length=12, primary_key=True, db_index=True)
+    
+
+class Wallet(models.Model):
+    owner = models.OneToOneField(User, related_name='wallet')
+
+
+class WalletTransaction(models.Model):
+    wallet = models.ForeignKey(Wallet)
+    booking = models.ForeignKey(Booking, null=True)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
