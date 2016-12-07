@@ -6,11 +6,9 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory
 from test_plus.test import TestCase
 from .factories import UserFactory, BookingFactory, WalletTransactionFactory
-from ..serializers import UserSerializer
 from ..views import (
     UserRedirectView,
     UserUpdateView,
-    UserApiView
 )
 
 
@@ -69,7 +67,8 @@ class TestUserUpdateView(BaseUserTestCase):
             self.user
         )
 
-
+from ..serializers import UserSerializer
+from ..views import ApiView
 class DjangoRestFrameworkUsageApiTestCase(TestCase):
 
     def setUp(self):

@@ -8,6 +8,8 @@ This are the tests that needs to be passed before getting an interview to work w
      :alt: Built with Cookiecutter Django
 
 
+
+
 :License: MIT
 
 
@@ -20,6 +22,8 @@ Moved to settings_.
 
 Activities to be Carried out
 ----------------------------
+Create a fork of this repo and implement the below Activities
+
 
 Create a postgres Database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -33,39 +37,15 @@ Work to be done
 ^^^^^^^^^^^^^^^
 1. Ensure that all tests in `users/test/test_models.py` are all passing.
 
-2. Ensure that the 
+2. Ensure that the tests in `users/test/test_views.py` are all passing. This would require knowledge of `djangorestframework` usage.
+3. Ensure that any dependency added used is added to the `requirements/local.txt` file.
 
-Live reloading and Sass CSS compilation
+After Completion
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Moved to `Live reloading and SASS compilation`_.
+Initiate a pull request back to the repo and ensure that all the test are passing,
 
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
+This repo has been setup with a continous integration server known as Travis that 
+automatically runs all the tests and would only proceed when all the tests are passing.
 
-
-
-
-
-Deployment
-----------
-
-The following details how to deploy this application.
-
-
-Heroku
-^^^^^^
-
-See detailed `cookiecutter-django Heroku documentation`_.
-
-.. _`cookiecutter-django Heroku documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
-
-
-
-Docker
-^^^^^^
-
-See detailed `cookiecutter-django Docker documentation`_.
-
-.. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
+Once the CI indicates that all tests are passing, You would be contacted.
