@@ -21,10 +21,10 @@ Moved to settings_.
 Activities to be Carried out
 ----------------------------
 
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
+Create a postgres Database
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+* Create a postgres database and setup the environmental variable `DJANGO_DATABASE_URL` to point to the url format of the database created.
 
 * To create an **superuser account**, use this command::
 
