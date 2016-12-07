@@ -18,6 +18,11 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = 'users.User'
         django_get_or_create = ('username', )
 
+    @classmethod
+    def get_user(self, user):
+        from ..models import User
+        return User.g_objects.filter(pk=user.pk).with_transaction_and_booking().first()
+
 
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
