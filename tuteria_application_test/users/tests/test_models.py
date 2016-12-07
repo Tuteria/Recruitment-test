@@ -35,20 +35,20 @@ class TestUser(TestCase):
         WalletTransactionFactory(wallet=user1.wallet, total=4000)
         WalletTransactionFactory(wallet=user2.wallet, total=2000, booking=booking2)
         WalletTransactionFactory(wallet=user3.wallet, total=4000)
-        users_with_bookings = User.objects.with_bookings()
+        users_with_bookings = User.g_objects.with_bookings()
         self.assertEqual(
             users_with_bookings.count(), 2
         )
         self.assertIn(user1, users_with_bookings)
         self.assertIn(user2, users_with_bookings)
-        users_with_total_transactions = User.objects.with_transaction_total()
+        users_with_total_transactions = User.g_objects.with_transaction_total()
         self.assertEqual(
             users_with_total_transactions[0].transaction_total, 20000
         )
-        users_with_transaction_and_booking = User.objects.with_transaction_and_booking()
+        users_with_transaction_and_booking = User.g_objects.with_transaction_and_booking()
         self.assertIn(user1, users_with_transaction_and_booking)
         self.assertIn(user2, users_with_transaction_and_booking)
-        users_with_no_bookings = User.objects.no_bookings()
+        users_with_no_bookings = User.g_objects.no_bookings()
         self.assertEqual(user3, users_with_no_bookings.first())
         self.assertEqual(
             users_with_no_bookings.first().transaction_total, 4000
