@@ -14,7 +14,7 @@ services:
 addons:
   postgresql: "9.4"
 before_script:
-  - psql -c 'create sample22;' -U postgres
+  - psql -c 'create database sample22;' -U postgres
 
 env:
 - DATABASE_URL=postgres://postgres:postgres@127.0.0.1/sample22
