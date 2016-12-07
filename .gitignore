@@ -57,6 +57,7 @@ node_modules/
 
 # virtual environments
 .env
+*.env
 
 # User-uploaded media
 tuteria_application_test/media/

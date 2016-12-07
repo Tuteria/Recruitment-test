@@ -24,7 +24,7 @@ Activities to be Carried out
 Create a postgres Database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Create a postgres database and setup the environmental variable `DJANGO_DATABASE_URL` to point to the url format of the database created.
+* Create a postgres database and setup the environmental variable `DATABASE_URL` to point to the url format of the database created.
 
 * To create an **superuser account**, use this command::
 
