@@ -1,7 +1,7 @@
 Tuteria-Application-Test
 ========================
 
-This are the tests that needs to be passed before getting an interview to work with Tuteria
+These are the tests that needs to be passed before getting an interview to work with Tuteria
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
@@ -50,5 +50,5 @@ automatically runs all the tests and would only proceed when all the tests are p
 
 Once the CI indicates that all tests are passing, You would be contacted.
 
-Ensure that the application runs locally on your system and all the thests pass before submitting a pull request
+Ensure that the application runs locally on your system and all the tests pass before submitting a pull request
 =================================================================================================================
