@@ -21,7 +21,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     @classmethod
     def get_user(self, user):
         from ..models import User
-        return User.g_objects.filter(pk=user.pk).with_transaction_and_booking().first()
+        return User.g_objects.with_transaction_and_booking().first()
 
 
 class BookingFactory(factory.django.DjangoModelFactory):

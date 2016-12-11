@@ -100,7 +100,7 @@ MANAGERS = ADMINS
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///tuteria_application_test'),
+    'default': env.db('DATABASE_URL', default='postgres://adeola:good@localhost/tuteria_application_test'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 

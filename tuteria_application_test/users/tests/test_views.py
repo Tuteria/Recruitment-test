@@ -9,6 +9,7 @@ from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserApiView,
 )
 
 
@@ -68,7 +69,7 @@ class TestUserUpdateView(BaseUserTestCase):
         )
 
 from ..serializers import UserSerializer
-from ..views import ApiView
+
 class DjangoRestFrameworkUsageApiTestCase(TestCase):
 
     def setUp(self):

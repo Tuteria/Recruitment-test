@@ -6,6 +6,25 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView,
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
+from rest_framework.views import APIView
+from .serializers import UserSerializer
+from rest_framework.response import Response
+
+class UserApiView(APIView):
+    def get(self, request):
+        details = User.objects.all()
+        serializer = UserSerializer(details, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            User.objects.create(first_name=data["first_name"],last_name=data["last_name"],
+                                with_bookings=True, transaction_and_booking=True,
+                                transaction_total=data["transaction_total"])
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
