@@ -40,8 +40,10 @@ Work to be done
 2. Ensure that the tests in `users/test/test_views.py` are all passing. This would require knowledge of `djangorestframework` usage.
 3. Ensure that any dependency added used is added to the `requirements/local.txt` file.
 
+
 Do not change the contents of the test files. 
 ==============================================
+
 
 Even if it appears there are errors in the tests. your solution should fix it
 ==============================================================================
