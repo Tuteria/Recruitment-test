@@ -108,9 +108,9 @@ class TestUser(TestCase):
         self.assertIn(user2, users_with_transaction_and_booking)
         users_with_no_bookings = User.g_objects.no_bookings()
         self.assertEqual(user3, users_with_no_bookings.first())
-        #self.assertEqual(
-         #   users_with_no_bookings.first().transaction_total, 4000
-        #)
+        self.assertEqual(
+            users_with_no_bookings.first().transaction_total, 4000
+        )
 
     def test_no_transaction_total_property_in_user_model(self):
         self.assertFalse(hasattr(self.user, 'transaction_total'))
