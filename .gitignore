@@ -66,3 +66,5 @@ tuteria_application_test/media/
 
 staticfiles/
 .cache/
+venv/
+startup.sh
