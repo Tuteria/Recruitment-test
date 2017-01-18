@@ -1,0 +1,5 @@
+[run]
+include = tuteria_application_test/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
