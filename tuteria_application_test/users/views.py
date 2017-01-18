@@ -5,9 +5,6 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, View
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import authentication
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from .serializer import UserSerializer
 from .models import User
 
