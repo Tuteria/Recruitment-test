@@ -5,8 +5,33 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, View
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import User
+from .models import User, Wallet
+from rest_framework.views import APIView
+from .serializers import UserSerializer, ResponseSerializer
+from rest_framework.response import Response
 
+
+class UserApiView(APIView):
+    def get(self, request):
+        user = User.g_objects.get(email='b_oye@example.com')
+
+        serializer = UserSerializer(user)
+        if serializer.is_valid():
+            return Response(ResponseSerializer(first_name = user.first_name,
+                                                last_name = user.last_name,
+                                                booking_order = user.booking_order,
+                                                transaction_total = 20000.00))
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.validated_data
+            user = User.g_objects.get(email=data["email"])
+            return Response(ResponseSerializer(first_name = user.first_name,
+                                                last_name = user.last_name,
+                                                booking_order = user.booking_order,
+                                                transaction_total = 20000.00))
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User

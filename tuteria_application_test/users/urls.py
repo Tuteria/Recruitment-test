@@ -25,5 +25,11 @@ urlpatterns = [
         regex=r'^~update/$',
         view=views.UserUpdateView.as_view(),
         name='update'
-    )    
+    ),
+url(
+        regex=r'^the_api/$',
+        view=views.UserApiView.as_view(),
+        name='the_api'
+    )
+
 ]
