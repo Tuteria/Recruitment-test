@@ -5,10 +5,12 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
 from test_plus.test import TestCase
+from ..serializer import UserSerializer
 from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserApiView,
 )
 
 
@@ -87,6 +89,7 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
         data = {
             "email": self.user.email,
         }
+
         url = self.reverse('users:the_api', self.user.pk)
         response = self.json_post(data, url=url)
 
