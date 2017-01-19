@@ -23,10 +23,15 @@ class UserFactory(factory.django.DjangoModelFactory):
         from ..models import User
         return User.g_objects.filter(pk=user.pk).with_transaction_and_booking().first()
 
+def val(n):
+    v = 'ACDESFFESG2{0}'.format(n)
+    if len(v) > 12:
+        return v[1:13]
+    return v
 
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
-    order = factory.Sequence(lambda n: 'ACDESFFESG2{0}'.format(n))
+    order = factory.Sequence(val)
 
     class Meta:
         model = 'users.Booking'
