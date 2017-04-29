@@ -7,7 +7,6 @@ from django.conf import settings
 
 
 class TestUser(TestCase):
-
     def setUp(self):
         self.user = self.make_user()
         apps_dir = settings.APPS_DIR
@@ -27,7 +26,6 @@ class TestUser(TestCase):
         )
 
     def test_if_test_mini_file_exists(self):
-
         self.assertTrue(os.path.exists(
             self.FILE), "You would need to create a test_mini.py file in this directory")
 

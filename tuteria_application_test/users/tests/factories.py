@@ -16,18 +16,20 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = 'users.User'
-        django_get_or_create = ('username', )
+        django_get_or_create = ('username',)
 
     @classmethod
     def get_user(self, user):
         from ..models import User
         return User.g_objects.filter(pk=user.pk).with_transaction_and_booking().first()
 
+
 def val(n):
     v = 'ACDESFFESG2{0}'.format(n)
     if len(v) > 12:
         return v[1:13]
     return v
+
 
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
@@ -38,6 +40,5 @@ class BookingFactory(factory.django.DjangoModelFactory):
 
 
 class WalletTransactionFactory(factory.django.DjangoModelFactory):
-
     class Meta:
         model = 'users.WalletTransaction'
