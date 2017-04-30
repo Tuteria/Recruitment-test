@@ -5,11 +5,13 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
 from test_plus.test import TestCase
+
 from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
-)
+    UserApiView,
+    UserSerializer)
 
 
 class BaseUserTestCase(TestCase):

@@ -3,9 +3,9 @@ from unittest import TestCase
 
 def fizzbuzz_val(val):
     result = ''
-    if val % 5 == 0:
-        result += "Fizz"
     if val % 3 == 0:
+        result += "Fizz"
+    if val % 5 == 0:
         result += "Buzz"
 
     return result
