@@ -51,7 +51,6 @@ class UserListView(LoginRequiredMixin, ListView):
 
 
 class UserApiView(CsrfExemptMixin, JsonRequestResponseMixin, View):
-
     def get(self, request, *args, **kwargs):
         user = User.g_objects.filter(pk=kwargs['pk']).with_transaction_and_booking().first()
         data = UserSerializer(user).data

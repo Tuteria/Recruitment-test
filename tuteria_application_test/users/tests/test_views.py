@@ -15,14 +15,12 @@ from ..views import (
 
 
 class BaseUserTestCase(TestCase):
-
     def setUp(self):
         self.user = self.make_user()
         self.factory = RequestFactory()
 
 
 class TestUserRedirectView(BaseUserTestCase):
-
     def test_get_redirect_url(self):
         # Instantiate the view directly. Never do this outside a test!
         view = UserRedirectView()
@@ -41,7 +39,6 @@ class TestUserRedirectView(BaseUserTestCase):
 
 
 class TestUserUpdateView(BaseUserTestCase):
-
     def setUp(self):
         # call BaseUserTestCase.setUp()
         super(TestUserUpdateView, self).setUp()
@@ -69,8 +66,8 @@ class TestUserUpdateView(BaseUserTestCase):
             self.user
         )
 
-class DjangoRestFrameworkUsageApiTestCase(TestCase):
 
+class DjangoRestFrameworkUsageApiTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.user = UserFactory(first_name='Biola', last_name='Oyeniyi',
@@ -104,7 +101,7 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
     def json_post(self, data, cls=UserApiView, url=None):
         request = self.factory.post(
             url, json.dumps(data), 'json',
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest',)
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest', )
         return cls.as_view()(request)
 
     def test_api_view_get_request_returns_valid_response(self):

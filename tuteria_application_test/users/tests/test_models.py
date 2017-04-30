@@ -140,6 +140,9 @@ class TestUser(TestCase):
         self.assertFalse(hasattr(user1, 'cancelled'))
         users_with_booking_aggs = User.objects.bookings_aggs()
         # import pdb; pdb.set_trace()
+        print(users_with_booking_aggs)
+        for i in users_with_booking_aggs:
+            print(i.completed)
         first = [x for x in users_with_booking_aggs if x == user1][0]
         second = [x for x in users_with_booking_aggs if x == user2][0]
         self.assertEqual(first.completed, 2)
