@@ -2,10 +2,14 @@
 from __future__ import absolute_import, unicode_literals
 import json
 from django.core.urlresolvers import reverse
+from django.http import JsonResponse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, View
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serialzers import UserSerializer
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -24,7 +28,6 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-
     fields = ['name', ]
 
     # we already imported User in the view code above, remember?
@@ -45,3 +48,16 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+
+class UserApiView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    def get(self, request, *args, **kwargs):
+        user = User.g_objects.filter(pk=kwargs['pk']).with_transaction_and_booking().first()
+        data = UserSerializer(user).data
+        return JsonResponse(data=data, status=200)
+
+    def post(self, request, *args, **kwargs):
+        email = json.loads(self.request_json)['email']
+        user = User.g_objects.filter(email=email).with_transaction_and_booking().first()
+        data = UserSerializer(user).data
+        return JsonResponse(data=data, status=200)
