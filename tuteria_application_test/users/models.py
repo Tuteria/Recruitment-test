@@ -27,27 +27,27 @@ class UserQuerySet(models.QuerySet):
         return self.attached_bookings().filter(booking_count=0).with_transaction_total()
 
 
-class UserManager(AbstractUserManager):
-    def owned(self):
-        return self.annotate(book=models.Count('orders__status')).exclude(orders=None)
-
-    def bookings_aggs(self):
-        d = self.owned()
-
-        # print("All" + str(d))
-        c = d.filter(orders__status="cancelled").count()
-
-        f = d.filter(orders__status="completed").count()
-        # print("complere " + str(f))
-        n = self.owned().filter(orders__status="not_started").count()
-        s = self.owned().filter(orders__status="scheduled").count()
-
-        # return self.aggregate()
-        return self.owned().annotate(completed=models.Value(f, output_field=models.IntegerField()),
-                                     cancelled=models.Value(c, output_field=models.IntegerField()),
-                                     not_started=models.Value(n, output_field=models.IntegerField()),
-                                     scheduled=models.Value(s, output_field=models.IntegerField())
-                                     )
+# class UserManager(AbstractUserManager):
+#     def owned(self):
+#         return self.annotate(book=models.Count('orders__status')).exclude(orders=None)
+#
+#     def bookings_aggs(self):
+#         d = self.owned()
+#
+#         # print("All" + str(d))
+#         c = d.filter(orders__status="cancelled").count()
+#
+#         f = d.filter(orders__status="completed").count()
+#         # print("complere " + str(f))
+#         n = self.owned().filter(orders__status="not_started").count()
+#         s = self.owned().filter(orders__status="scheduled").count()
+#
+#         # return self.aggregate()
+#         return self.owned().annotate(completed=models.Value(f, output_field=models.IntegerField()),
+#                                      cancelled=models.Value(c, output_field=models.IntegerField()),
+#                                      not_started=models.Value(n, output_field=models.IntegerField()),
+#                                      scheduled=models.Value(s, output_field=models.IntegerField())
+#                                      )
 
 
 @python_2_unicode_compatible
@@ -56,7 +56,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
     g_objects = UserQuerySet.as_manager()
-    objects = UserManager()
+    # objects = UserManager()
 
     def __str__(self):
         return self.username
@@ -72,14 +72,14 @@ class Booking(models.Model):
     COMPLETED = "completed"
     SCHEDULED = "scheduled"
     NOT_STARTED = "not_started"
-
+    status = NOT_STARTED
     choices = (
         (CANCELLED, "cancelled"),
         (COMPLETED, "completed"),
         (SCHEDULED, "scheduled"),
         (NOT_STARTED, "not_started")
     )
-    status = models.CharField(max_length=256, choices=choices, default=NOT_STARTED)
+    # status = models.CharField(max_length=256, choices=choices, default=NOT_STARTED)
 
 
 class Wallet(models.Model):
