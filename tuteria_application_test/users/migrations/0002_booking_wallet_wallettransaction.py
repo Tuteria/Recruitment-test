@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Booking',
             fields=[
                 ('order', models.CharField(db_index=True, max_length=12, primary_key=True, serialize=False)),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL))
             ],
         ),
         migrations.CreateModel(

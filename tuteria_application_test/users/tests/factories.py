@@ -32,7 +32,7 @@ def val(n):
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     order = factory.Sequence(val)
-
+    status = "not_started"
     class Meta:
         model = 'users.Booking'
 

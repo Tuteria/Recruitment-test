@@ -68,3 +68,7 @@ staticfiles/
 .cache/
 venv/
 startup.sh
+
+# Vagrant 
+Vagrantfile
+.vagrant/
