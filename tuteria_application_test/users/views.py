@@ -6,6 +6,19 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView,
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
+from rest_framework.views import APIView
+from rest_framework import serializers, status
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+
+class UserSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        return {
+            'first_name': obj.first_name,
+            'last_name': obj.last_name,
+            'booking_order': obj.booking_order,
+            'transaction_total': '%.2f' %obj.transaction_total
+        }
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -45,3 +58,24 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+class UserApiView(APIView):
+
+    def get(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def post(self, request):
+        data = json.loads(request.data)
+        try:
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user)
+        return Response(serializer.data, content_type="application/json")

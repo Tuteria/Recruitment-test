@@ -9,6 +9,8 @@ from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserApiView,
+    UserSerializer,
 )
 
 
@@ -91,7 +93,7 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
         response = self.json_post(data, url=url)
 
         self.mock.assert_called_once_with(self.user)
-        data2 = json.loads(response.content.decode('utf-8'))
+        data2 = json.loads(response.render().content.decode('utf-8'))
         self.assertEqual(data2, {
             'first_name': 'Biola',
             'last_name': 'Oyeniyi',

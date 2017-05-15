@@ -252,3 +252,6 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+# ALLOWED HOST
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
