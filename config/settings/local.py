@@ -35,7 +35,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
                     default='django.core.mail.backends.console.EmailBackend')
 
 # ALLOWED HOST
-allowed_host = env('DJANGO_ALLOWED_HOSTS')
+allowed_host = env('DJANGO_ALLOWED_HOSTS', default='localhost')
 if allowed_host:
     allowed_host = allowed_host.split(",")
 else:
