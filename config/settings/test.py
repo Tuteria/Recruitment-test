@@ -62,16 +62,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
         'django.template.loaders.app_directories.Loader',
     ]),
 ]
-DATABASE = {
-	'default':{
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'TUTERIATEST',
-        'USER': 'beast',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        }
-	}
+
 
 ALLOWED_HOSTS = ['*']
 

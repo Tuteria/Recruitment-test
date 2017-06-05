@@ -55,9 +55,6 @@ node_modules/
 # Compass
 .sass-cache
 
-# virtual environments
-.env
-*.env
 
 # User-uploaded media
 tuteria_application_test/media/
