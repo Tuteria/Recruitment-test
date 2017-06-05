@@ -40,7 +40,8 @@ pytz==2016.10
 django-redis==4.6.0
 redis>=2.10.5
 
-
+#fake factory fix
+fake-factory==0.7.4
 
 
 

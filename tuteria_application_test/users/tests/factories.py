@@ -28,7 +28,7 @@ def val(n):
     if len(v) > 12:
         return v[1:13]
     return v
-
+    
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     order = factory.Sequence(val)

@@ -18,8 +18,11 @@ APPS_DIR = ROOT_DIR.path('tuteria_application_test')
 env = environ.Env()
 env.read_env()
 
+
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
+
+
 DJANGO_APPS = (
     # Default Django apps:
     'django.contrib.auth',
@@ -45,7 +48,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # custom users app
-    'tuteria_application_test.users.apps.UsersConfig',
+    'tuteria_application_test.users',
     # Your stuff: custom apps go here
 )
 
@@ -101,7 +104,8 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///tuteria_application_test'),
-}
+    }
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
