@@ -1,7 +1,6 @@
 import json
 from django.test import RequestFactory
 from unittest.mock import patch
-# from mock import patch
 from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory

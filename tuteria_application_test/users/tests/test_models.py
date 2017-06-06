@@ -1,6 +1,6 @@
 import os
 from test_plus.test import TestCase
-from mock import patch
+from unittest.mock import patch
 from .factories import UserFactory, WalletFactory, WalletTransactionFactory, BookingFactory
 from ..models import User, Booking, Wallet, WalletTransaction
 from django.conf import settings
