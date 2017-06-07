@@ -3,34 +3,55 @@ from test_plus.test import TestCase
 
 
 
+# def fizzbuzz_val(val):
+# 	if val == 15:
+# 		return 'FizzBuzz'
+
+# 	if val == 8:
+# 		return 'FizzBuzz'
+
+# 	if val == 5:
+# 		return 'Buzz'
+
+# 	if val ==10:
+# 		return 'Buzz'
+
+# 	if val == 20:
+# 		return 'Buzz'
+
+# 	if val == 99:
+# 		return 'Fizz'
+
+# 	if val ==3:
+# 		return 'Fizz'
+
 def fizzbuzz_val(val):
-	if val == 15:
-		return 'FizzBuzz'
+	fizzbuzz = []
+	if val:
+		if val%5 == 0:
+			fizzbuzz.append('Buzz')
 
-	if val == 8:
-		return 'FizzBuzz'
+		if val%3 == 0:
+			fizzbuzz.append('Fizz')
 
-	if val == 5:
-		return 'Buzz'
+	if len(fizzbuzz) == 0:
+		return None
+	
+	if len(fizzbuzz)==1:
+		return fizzbuzz[0]
 
-	if val ==10:
-		return 'Buzz'
+	elif len(fizzbuzz)==2:
+		return fizzbuzz[1] + fizzbuzz[0]
 
-	if val == 20:
-		return 'Buzz'
+		
 
-	if val == 99:
-		return 'Fizz'
-
-	if val ==3:
-		return 'Fizz'
 
 
 class MiniTest(TestCase):
 
 	def test_multiples_of_3_and_5(self):
 		self.assertEqual(fizzbuzz_val(15), 'FizzBuzz')
-
+		
 
 	def test_multiples_of_5_alone(self):
 		self.assertTrue(fizzbuzz_val(5) is 'Buzz')
