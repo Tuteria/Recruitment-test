@@ -8,8 +8,9 @@ from test_plus.test import TestCase
 from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
-    UserUpdateView,
+    UserUpdateView, UserApiView, UserSerializer
 )
+from ..serializers import UserSerializer
 
 
 class BaseUserTestCase(TestCase):

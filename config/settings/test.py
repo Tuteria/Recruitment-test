@@ -3,6 +3,7 @@
 Test settings
 
 - Used to run tests fast on the continuous integration server and locally
+
 '''
 
 from .common import *  # noqa
@@ -18,6 +19,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = False
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
+
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='CHANGEME!!!')
 
 # Mail settings
@@ -60,3 +62,5 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
         'django.template.loaders.app_directories.Loader',
     ]),
 ]
+
+ALLOWED_HOSTS = ['*']

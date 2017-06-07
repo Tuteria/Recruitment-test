@@ -29,9 +29,18 @@ def val(n):
         return v[1:13]
     return v
 
+def c_status(status):
+    statuses =['completed', 'scheduled', 'cancelled', 'not_started']
+    if status in statuses:
+        return status
+    else:
+        return 'not_started'
+    
+    
 class BookingFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     order = factory.Sequence(val)
+    status = factory.Sequence(c_status)
 
     class Meta:
         model = 'users.Booking'
