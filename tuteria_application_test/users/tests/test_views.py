@@ -9,7 +9,9 @@ from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserApiView
 )
+from ..serializers import UserSerializer
 
 
 class BaseUserTestCase(TestCase):
