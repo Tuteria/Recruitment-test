@@ -5,7 +5,14 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, View
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from .models import User
+from .serializers import UserSerializer
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -45,3 +52,24 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+
+class UserApiView(APIView):
+    """API view for the user model."""
+    
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.data)
+        user = User.objects.get(email=data.get('email'))
+        serializer = UserSerializer(user)
+
+        return JsonResponse(serializer.data)
