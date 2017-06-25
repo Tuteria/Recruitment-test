@@ -6,6 +6,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView,
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -60,7 +61,9 @@ class UserApiView(APIView):
     queryset = User.objects.all()
 
     def get(self, request, *args, **kwargs):
-        serializer = UserSerializer(self.queryset.first())
+        pk = kwargs.get('pk')
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user)
 
         return Response(serializer.data)
 

@@ -15,7 +15,6 @@ class CustomUserQuerySet(models.QuerySet):
 
     def with_bookings(self):
         """return users with bookings where the transaction > 1"""
-
         queryset = self.filter(
             wallet__transactions__booking__isnull=False).distinct()
 

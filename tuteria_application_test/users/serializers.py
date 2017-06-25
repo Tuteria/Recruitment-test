@@ -14,9 +14,9 @@ class UserSerializer(serializers.ModelSerializer):
         return [order.order for order in user.orders.all()]
 
     def get_transaction_total(self, user):
-        total = [trans.total for trans in user.wallet.transactions.all()]
+        user = User.g_objects.with_transaction_total().get(pk=user.id)
 
-        return str(sum(total))
+        return str(user.transaction_total)
 
     class Meta:
         model = User
