@@ -1,5 +1,7 @@
 """Serializers for API."""
 
+from django.db.models import Sum
+
 from rest_framework import serializers
 
 from .models import User, Booking
@@ -14,9 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
         return [order.order for order in user.orders.all()]
 
     def get_transaction_total(self, user):
-        user = User.g_objects.with_transaction_total().get(pk=user.id)
-
-        return str(user.transaction_total)
+        total = user.wallet.transactions.aggregate(total=Sum('total'))
+        
+        return str(total['total'])
 
     class Meta:
         model = User
