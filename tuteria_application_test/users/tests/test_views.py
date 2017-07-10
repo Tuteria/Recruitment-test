@@ -1,6 +1,6 @@
 import json
 from django.test import RequestFactory
-from unittest.mock import patch
+from mock import patch
 from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
@@ -9,6 +9,7 @@ from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserDetailView,
 )
 
 
@@ -99,7 +100,7 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
             'transaction_total': '20000.00'
         })
 
-    def json_post(self, data, cls=UserApiView, url=None):
+    def json_post(self, data, cls=UserDetailView, url=None):
         request = self.factory.post(
             url, json.dumps(data), 'json',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',)
