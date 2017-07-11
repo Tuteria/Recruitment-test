@@ -11,6 +11,7 @@ from ..views import (
     UserUpdateView,
     UserDetailView,
 )
+from ..serializers import UserSerializer
 
 
 class BaseUserTestCase(TestCase):

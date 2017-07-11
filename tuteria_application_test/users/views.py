@@ -6,6 +6,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView,
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
+from .serializers import UserSerializer
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -45,3 +46,15 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+class UserApiView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    def get(self, request, **kwargs):
+        user = User.g_objects.filter(pk=kwargs['pk']).with_transaction_and_booking().first()
+        data = UserSerializer(user).data
+        return JsonResponse(data=data, status=200)
+
+    def post(self, request, **kwargs):
+        email = json.loads(self.request_json)['email']
+        user = User.g_objects.filter(email=email).with_transaction_and_booking().first()
+        data = UserSerializer(user).data
+        return JsonResponse(data=data, status=200)
