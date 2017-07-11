@@ -98,8 +98,6 @@ class TestUser(TestCase):
         self.assertIn(user1, users_with_bookings)
         self.assertIn(user2, users_with_bookings)
         users_with_total_transactions = User.g_objects.with_transaction_total()
-        # import pdb
-        # pdb.set_trace()
         self.assertEqual(
             users_with_total_transactions[0].transaction_total, 20000
         )
@@ -141,14 +139,13 @@ class TestUser(TestCase):
         self.assertFalse(hasattr(user2, 'cancelled'))
         self.assertFalse(hasattr(user1, 'cancelled'))
         users_with_booking_aggs = User.objects.bookings_aggs()
-        # import pdb; pdb.set_trace()
         first = [x for x in users_with_booking_aggs if x == user1][0]
         second = [x for x in users_with_booking_aggs if x == user2][0]
         self.assertEqual(first.completed, 2)
-        self.assertEqual(second.completed, 1)
-        self.assertEqual(first.cancelled, 4)
-        self.assertEqual(second.cancelled, 4)
+        self.assertEqual(second.completed, 2)
+        self.assertEqual(first.cancelled, 2)
+        self.assertEqual(second.cancelled, 2)
         self.assertEqual(first.scheduled, 1)
-        self.assertEqual(second.scheduled, 0)
-        self.assertEqual(first.not_started, 1)
-        self.assertEqual(second.not_started, 1)
+        self.assertEqual(second.scheduled, 1)
+        self.assertEqual(first.not_started, 2)
+        self.assertEqual(second.not_started, 2)

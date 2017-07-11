@@ -9,6 +9,8 @@ from .factories import UserFactory, BookingFactory, WalletTransactionFactory
 from ..views import (
     UserRedirectView,
     UserUpdateView,
+    UserApiView,
+    UserSerializer,
 )
 
 
@@ -67,6 +69,7 @@ class TestUserUpdateView(BaseUserTestCase):
             self.user
         )
 
+
 class DjangoRestFrameworkUsageApiTestCase(TestCase):
 
     def setUp(self):
@@ -76,9 +79,11 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
         self.booking = BookingFactory(user=self.user, order='ABCDEFGHIJKL')
         WalletTransactionFactory(booking=self.booking,
                                  wallet=self.user.wallet, total=20000)
-        self.patch = patch('tuteria_application_test.users.views.UserSerializer')
+        self.patch = patch(
+            'tuteria_application_test.users.views.UserSerializer')
         self.mock = self.patch.start()
-        self.mock.return_value = UserSerializer(UserFactory.get_user(self.user))
+        self.mock.return_value = UserSerializer(
+            UserFactory.get_user(self.user))
 
     def tearDown(self):
         self.patch.stop()
