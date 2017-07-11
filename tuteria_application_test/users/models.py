@@ -8,6 +8,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
+from django.db.models import Count, Case, When
+
 
 class UserQuerySet(models.QuerySet):
 
@@ -29,23 +31,15 @@ class UserQuerySet(models.QuerySet):
 
 class NewUserManager(UserManager):
 
-    def owned(self):
-        return self.annotate(book=models.Count('orders__status')).exclude(orders=None)
-
     def bookings_aggs(self):
-        owned = self.owned()
-        cancelled = owned.filter(orders__status="cancelled").count()
-        completed = owned.filter(orders__status="completed").count()
-        not_started = self.owned().filter(orders__status="not_started").count()
-        scheduled = self.owned().filter(orders__status="scheduled").count()
-        return self.owned().annotate(completed=models.Value(completed, output_field=models.IntegerField()),
-                                     cancelled=models.Value(
-                                         cancelled, output_field=models.IntegerField()),
-                                     not_started=models.Value(
-                                         not_started, output_field=models.IntegerField()),
-                                     scheduled=models.Value(
-                                         scheduled, output_field=models.IntegerField())
-                                     )
+        q = self.get_queryset()
+        q = q.annotate(
+            not_started=Count(Case(When(orders__status='not_started', then=1))),
+            completed=Count(Case(When(orders__status='completed', then=1))),
+            scheduled=Count(Case(When(orders__status='scheduled', then=1))),
+            cancelled=Count(Case(When(orders__status='cancelled', then=1))),
+        )
+        return q
 
 
 @python_2_unicode_compatible
@@ -74,10 +68,10 @@ class Booking(models.Model):
     CANCELLED = "cancelled"
 
     BOOKING_STATUSES = (
-        (NOT_STARTED, "not_started"),
-        (COMPLETED, "completed"),
-        (SCHEDULED, "scheduled"),
-        (CANCELLED, "cancelled"),
+        ("not_started", NOT_STARTED),
+        ("completed", COMPLETED),
+        ("scheduled", SCHEDULED),
+        ("cancelled", CANCELLED),
     )
 
     status = models.CharField(

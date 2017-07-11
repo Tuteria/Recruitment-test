@@ -142,10 +142,10 @@ class TestUser(TestCase):
         first = [x for x in users_with_booking_aggs if x == user1][0]
         second = [x for x in users_with_booking_aggs if x == user2][0]
         self.assertEqual(first.completed, 2)
-        self.assertEqual(second.completed, 2)
-        self.assertEqual(first.cancelled, 2)
-        self.assertEqual(second.cancelled, 2)
+        self.assertEqual(second.completed, 1)
+        self.assertEqual(first.cancelled, 4)
+        self.assertEqual(second.cancelled, 4)
         self.assertEqual(first.scheduled, 1)
-        self.assertEqual(second.scheduled, 1)
-        self.assertEqual(first.not_started, 2)
-        self.assertEqual(second.not_started, 2)
+        self.assertEqual(second.scheduled, 0)
+        self.assertEqual(first.not_started, 1)
+        self.assertEqual(second.not_started, 1)
