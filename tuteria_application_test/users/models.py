@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Sum
+from django.db.models import Count, Case, When
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -37,6 +38,19 @@ class UserQuerySet(models.QuerySet):
 
         return queryset
 
+class CustomUserManager(UserManager):
+
+    def bookings_aggs(self):
+        query = self.get_queryset()
+        query = query.annotate(
+            cancelled=Count(Case(When(orders__status='cancelled', then=1))),
+            completed=Count(Case(When(orders__status='completed', then=1))),
+            scheduled=Count(Case(When(orders__status='scheduled', then=1))),
+            not_started=Count(Case(When(orders__status='not_started', then=1))),
+        )
+        return query
+
+
 @python_2_unicode_compatible
 class User(AbstractUser):
 
@@ -44,6 +58,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
     g_objects = UserQuerySet.as_manager()
+    objects = CustomUserManager()
     
     def __str__(self):
         return self.username
@@ -61,7 +76,6 @@ class Booking(models.Model):
     SCHEDULED = "scheduled"
     NOT_STARTED = "not_started"
     
-
 
 class Wallet(models.Model):
     owner = models.OneToOneField(User, related_name='wallet')
