@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, View
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, JSONResponseMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from .models import User
 from .serializers import UserSerializer
 
@@ -51,10 +52,10 @@ class UserApiView(CsrfExemptMixin, JsonRequestResponseMixin, View):
     def get(self, request, **kwargs):
         user = User.g_objects.filter(pk=kwargs['pk']).with_transaction_and_booking().first()
         data = UserSerializer(user).data
-        return JsonResponse(data=data, status=200)
+        return JsonResponse(data=data, status=2)
 
     def post(self, request, **kwargs):
         email = json.loads(self.request_json)['email']
         user = User.g_objects.filter(email=email).with_transaction_and_booking().first()
         data = UserSerializer(user).data
-        return JsonResponse(data=data, status=200)
+        return JsonResponse(data=data, status=2)
