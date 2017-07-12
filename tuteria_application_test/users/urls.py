@@ -27,7 +27,7 @@ urlpatterns = [
         name='update'
     ),
     url(
-        regex=r'^~api/users/$',
+        regex=r'^users/(?P<pk>\w+)/$',
         view=views.UserApiView.as_view(),
         name='the_api'
     )    
