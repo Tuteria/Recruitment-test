@@ -10,6 +10,7 @@ from ..views import (
     UserRedirectView,
     UserUpdateView,
     UserDetailView,
+    UserApiView,
 )
 from ..serializers import UserSerializer
 
@@ -101,7 +102,7 @@ class DjangoRestFrameworkUsageApiTestCase(TestCase):
             'transaction_total': '20000.00'
         })
 
-    def json_post(self, data, cls=UserDetailView, url=None):
+    def json_post(self, data, cls=UserApiView, url=None):
         request = self.factory.post(
             url, json.dumps(data), 'json',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',)
