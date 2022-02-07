@@ -4,8 +4,51 @@ from __future__ import unicode_literals, absolute_import
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import Sum
+from django.db.models import Count, Case, When
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
+class UserQuerySet(models.QuerySet):
+
+    def with_bookings(self):
+        queryset = self.filter(
+            wallet__transactions__booking__isnull=False).distinct()
+
+        return queryset
+
+    def with_transaction_total(self):
+        queryset = self.filter(wallet__isnull=False)
+        queryset = queryset.annotate(
+            transaction_total=Sum('wallet__transactions__total')
+            )
+        
+        return queryset
+
+    def with_transaction_and_booking(self):
+        """Return users with both transactions and bookings."""
+        queryset = self.filter(
+            wallet__isnull=False, wallet__transactions__isnull=False
+            )
+
+        return queryset
+
+    def no_bookings(self):
+        queryset = self.with_transaction_total().filter(orders__isnull=True)
+
+        return queryset
+
+class CustomUserManager(UserManager):
+
+    def bookings_aggs(self):
+        query = self.get_queryset()
+        query = query.annotate(
+            cancelled=Count(Case(When(orders__status='cancelled', then=1))),
+            completed=Count(Case(When(orders__status='completed', then=1))),
+            scheduled=Count(Case(When(orders__status='scheduled', then=1))),
+            not_started=Count(Case(When(orders__status='not_started', then=1))),
+        )
+        return query
 
 
 @python_2_unicode_compatible
@@ -14,6 +57,8 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    g_objects = UserQuerySet.as_manager()
+    objects = CustomUserManager()
     
     def __str__(self):
         return self.username
@@ -25,7 +70,12 @@ class User(AbstractUser):
 class Booking(models.Model):
     user = models.ForeignKey(User, null=True, related_name='orders')
     order = models.CharField(max_length=12, primary_key=True, db_index=True)
-
+    status = models.CharField(max_length=12, default='not_started')
+    CANCELLED = "cancelled"
+    COMPLETED = "completed"
+    SCHEDULED = "scheduled"
+    NOT_STARTED = "not_started"
+    
 
 class Wallet(models.Model):
     owner = models.OneToOneField(User, related_name='wallet')
